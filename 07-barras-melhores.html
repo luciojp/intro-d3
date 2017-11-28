@@ -77,11 +77,20 @@
       /*
        * As escalas
        */
-      var x = d3.scaleBand(); // Configure essa escala com domain, range e padding
 
-      var y = d3.scaleLinear() // Configure essa escala com domain e range
-                               // Lembre que uma escala pode converter de 1..10 -> 100..1
+       var max = d3.max(dados, (d,i) => d.valor) + 20; //valor maximo do eixo y
+            // ou seja, y vai de 0 ao valor máximo dos dados +20.
 
+      var x = d3.scaleBand()
+                .domain(dados.map(function(d){
+                  return d.letra;
+                }))
+                .range([0, larguraVis]) 
+                .padding(.3); // Configure essa escala com domain, range e padding
+
+      var y = d3.scaleLinear()
+                .domain([0,max])
+                .range([alturaVis,0]);
       // === ATÉ DAQUI ===
 
       /*
